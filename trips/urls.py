@@ -1,10 +1,11 @@
 from django.urls import path
 
-from trips.views import SignUpView, LoginView
-from rest_framework_simplejwt.views import TokenRefreshView
+from trips.views import TripView
+
+app_name = 'taxi'
 
 urlpatterns = [
-    path('sign_up/', SignUpView.as_view(), name='sign_up'),
-    path('log_in/', LoginView.as_view(), name='log_in'), # new
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # new
+    path('', TripView.as_view({'get': 'list'}), name='trip_list'),
+    path('<uuid:trip_id>/', TripView.as_view({'get': 'retrieve'}), name='trip_detail'),  # new
+
 ]
