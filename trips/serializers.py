@@ -50,3 +50,15 @@ class TripSerializer(serializers.ModelSerializer):
         model = Trip
         fields = '__all__'
         read_only_fields = ('id', 'created', 'updated',)
+
+
+class NestedTripSerializer(serializers.ModelSerializer):
+    driver = UserSerializer()
+    rider = UserSerializer()
+    #  if we don't specify that driver and rider should use our custom UserSerializer, 
+    # then the default serializer will return every field, including password
+
+    class Meta:
+        model = Trip
+        fields = '__all__'
+        depth = 1
